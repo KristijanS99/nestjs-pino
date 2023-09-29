@@ -25,11 +25,11 @@ jobs:
         run: npm run build  # Replace with your build command
 
       - name: Copy dist content
-        run: mv dist/* .
+        run: mv dist/* . && rm dist
 
       - name: Archive Release
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
           filename: 'release.zip'
-          exclusions: '*.git* /*node_modules/* .editorconfig /*__tests__/* .idea /*example/ .eslintrc.js .prettierc jest.config.js package-lock.json tsconfig.build.json tsconfig.json'
+          exclusions: '*.git* *node_modules* *__tests__* *.idea* *example* *.eslintrc.js *.prettierc *jest.config.js *package-lock.json *tsconfig.build.json *tsconfig.json'
