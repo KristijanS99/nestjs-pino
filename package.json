@@ -26,7 +26,6 @@
     "logger",
     "otel"
   ],
-  "files": [ "dist" ],
   "devDependencies": {
     "@nestjs/common": "^10.2.0",
     "@nestjs/core": "^10.2.0",
