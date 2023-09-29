@@ -34,9 +34,9 @@ jobs:
 
       - name: Turn off ignore path message
         run: git config advice.addIgnoredFile false
-       
+
       - name: Add "dist" folder temporarily
-        run: git add dist
+        run: git add dist -f
 
       - name: Commit "dist" folder for tag creation
         run: git commit -m "Add 'dist' folder for tag creation"
