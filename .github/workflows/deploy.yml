@@ -31,3 +31,18 @@ jobs:
           git push origin --delete $TAG_NAME 2>/dev/null || true
           git tag $TAG_NAME
           git push origin $TAG_NAME
+          
+      - name: Add "dist" folder temporarily
+        run: git add dist
+
+      - name: Commit "dist" folder for tag creation
+        run: git commit -m "Add 'dist' folder for tag creation"
+
+      - name: Push with "dist" folder
+        run: git push origin main
+
+      - name: Remove "dist" folder changes
+        run: git reset --hard HEAD^
+
+      - name: Push without "dist" folder
+        run: git push origin main
