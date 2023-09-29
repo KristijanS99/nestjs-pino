@@ -24,39 +24,9 @@ jobs:
       - name: Build
         run: npm run build  # Replace with your build command
 
-      - name: Create Release Artifact
-        run: |
-          # Create a release artifact (e.g., a ZIP or tar.gz file) from your build output, README, and package.json
-          # Copy the contents of 'dist' to the root of the artifact
-          # Replace 'dist' with the appropriate paths
-          mkdir release-artifact
-          cp -r dist/* release-artifact/
-          cp README.md package.json release-artifact/
-          zip -r release-artifact.zip release-artifact/
-
-      - name: Upload Release Artifact
-        uses: actions/upload-artifact@v2
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.1
         with:
-          name: release-artifact
-          path: release-artifact.zip
-
-      - name: Extract Artifact and Create Tag
-        run: |
-          TAG_NAME="latest"
-          ARTIFACT_DIR="artifact-contents"
-          
-          # Create a directory for the artifact contents
-          mkdir $ARTIFACT_DIR
-          
-          # Download and extract the artifact
-          curl -L -o artifact.zip https://github.com/$GITHUB_REPOSITORY/actions/artifacts/<artifact-id>/zip
-          unzip -q artifact.zip -d $ARTIFACT_DIR
-          
-          # Add the contents of the artifact to your Git repository
-          git add $ARTIFACT_DIR
-          git commit -m "Add artifact contents to the repository"
-          git push origin main
-          
-          # Create a new GitHub tag
-          git tag $TAG_NAME
-          git push origin $TAG_NAME --force
+          type: 'zip'
+          filename: 'release.zip'
+          exclusions: '*.git* /*node_modules/* .editorconfig __tests__ .idea example .eslintrc.js .prettierc jest.config.js package-lock.json tsconfig.build.json tsconfig.json'
