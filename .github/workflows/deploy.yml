@@ -57,7 +57,3 @@ jobs:
           echo "::set-output name=upload_url::$UPLOAD_URL"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get Release URL
-        run:
-          echo "Release URL: ${{ steps.create_release.outputs.upload_url }}"
