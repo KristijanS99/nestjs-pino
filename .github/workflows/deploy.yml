@@ -27,33 +27,22 @@ jobs:
       - name: Copy dist content
         run: mv dist/* . && rm -rf dist
 
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.1
-        with:
-          type: 'zip'
-          filename: 'release.zip'
-          exclusions: '*.git* /*node_modules/* /*example/* /*__tests__/* /*.idea/* /*src/* package-lock.json'
+      - name: Get the latest commit hash
+        id: latest_commit
+        run: echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
 
-      - name: Read package.json
-        id: package
-        run: echo "::set-output name=version::$(jq -r .version package.json)"
-        shell: bash
-
-      - name: Create Release
-        id: create_release
+      - name: Check if 'latest' tag exists
+        id: tag_exists
         run: |
-          RELEASE_TAG=v${{ steps.package.outputs.version }}
-          ZIP_FILE=./release.zip
-          UPLOAD_URL=$(curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/releases" \
-            --data '{"tag_name": "'"$RELEASE_TAG"'"}' \
-            | jq -r .upload_url)
-          UPLOAD_URL="${UPLOAD_URL/\{?name,label\}/?name=${ZIP_FILE##*/}}"
-          curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Content-Type: application/zip" \
-            --data-binary @"$ZIP_FILE" "$UPLOAD_URL"
-          echo "::set-output name=upload_url::$UPLOAD_URL"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if git rev-parse -q --verify "refs/tags/latest" >/dev/null; then
+            echo "::set-output name=tag_exists::true"
+          else
+            echo "::set-output name=tag_exists::false"
+          fi
+
+      - name: Create or update 'latest' tag
+        if: steps.tag_exists.outputs.tag_exists == 'false'
+        run: |
+          git tag -f latest ${{ steps.latest_commit.outputs.commit_hash }}
+          git push -f origin latest
+

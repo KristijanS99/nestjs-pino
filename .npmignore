@@ -1,0 +1,13 @@
+.github
+.idea
+__tests__
+example
+src
+node_modules
+.eslintrc.js
+.gitignore
+.prettierrc
+jest.config.js
+package-lock.json
+tsconfig.json
+tsconfig.build.json
