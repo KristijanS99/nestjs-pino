@@ -40,17 +40,23 @@ jobs:
           name: release-artifact
           path: release-artifact.zip
 
-      - name: Check if "latest" Tag Exists
+      - name: Extract Artifact and Create Tag
         run: |
           TAG_NAME="latest"
-          if git rev-parse -q --verify "refs/tags/$TAG_NAME" >/dev/null; then
-            echo "Deleting existing 'latest' tag..."
-            git tag -d $TAG_NAME
-            git push origin --delete $TAG_NAME
-          fi
-
-      - name: Create New "latest" Tag
-        run: |
-          TAG_NAME="latest"
+          ARTIFACT_DIR="artifact-contents"
+          
+          # Create a directory for the artifact contents
+          mkdir $ARTIFACT_DIR
+          
+          # Download and extract the artifact
+          curl -L -o artifact.zip https://github.com/$GITHUB_REPOSITORY/actions/artifacts/<artifact-id>/zip
+          unzip -q artifact.zip -d $ARTIFACT_DIR
+          
+          # Add the contents of the artifact to your Git repository
+          git add $ARTIFACT_DIR
+          git commit -m "Add artifact contents to the repository"
+          git push origin main
+          
+          # Create a new GitHub tag
           git tag $TAG_NAME
           git push origin $TAG_NAME --force
