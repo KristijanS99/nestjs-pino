@@ -25,14 +25,14 @@ jobs:
         run: npm run build  # Replace with your build command
 
       - name: Copy dist content
-        run: mv dist/* . && rm -rf dist
+        run: cp package.json README.md /dist
 
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.1
-        with:
-          type: 'tar'
-          filename: 'release.tar.gz'
-          exclusions: '*.git* *node_modules* *example* *__tests__* *.idea* *src* package-lock.json'
+      - name: Create Tar File
+        run: |
+          # Navigate to the folder containing the files you want to tar
+          cd dist
+          # Create a tar file with gzip compression
+          tar -czvf ../release.tar.gz .
 
       - name: Read package.json
         id: package
