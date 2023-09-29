@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Pino logger for NestJS with OTEL support.",
   "main": "index.js",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest --verbose -i --detectOpenHandles --forceExit",
     "lint": "tsc --noemit && eslint \"{src,__tests__}/**/*.ts\" --fix",

@@ -24,15 +24,33 @@ jobs:
       - name: Build
         run: npm run build  # Replace with your build command
 
-      - name: Copy Dist Files
+      - name: Create Release Artifact
         run: |
-          cp -r dist/* .
-          git add .
+          # Create a release artifact (e.g., a ZIP or tar.gz file) from your build output, README, and package.json
+          # Copy the contents of 'dist' to the root of the artifact
+          # Replace 'dist' with the appropriate paths
+          mkdir release-artifact
+          cp -r dist/* release-artifact/
+          cp README.md package.json release-artifact/
+          zip -r release-artifact.zip release-artifact/
+
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifact
+          path: release-artifact.zip
+
+      - name: Check if "latest" Tag Exists
+        run: |
+          TAG_NAME="latest"
+          if git rev-parse -q --verify "refs/tags/$TAG_NAME" >/dev/null; then
+            echo "Deleting existing 'latest' tag..."
+            git tag -d $TAG_NAME
+            git push origin --delete $TAG_NAME
+          fi
 
       - name: Create New "latest" Tag
         run: |
           TAG_NAME="latest"
-          git tag -d $TAG_NAME 2>/dev/null || true
-          git push origin --delete $TAG_NAME 2>/dev/null || true
           git tag $TAG_NAME
-          git push origin $TAG_NAME
+          git push origin $TAG_NAME --force
