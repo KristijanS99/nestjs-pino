@@ -32,4 +32,4 @@ jobs:
         with:
           type: 'zip'
           filename: 'release.zip'
-          exclusions: '*.git* *node_modules* *__tests__* *.idea* *example* *.eslintrc.js *.prettierc *jest.config.js *package-lock.json *tsconfig.build.json *tsconfig.json'
+          exclusions: '*.git* /*node_modules/* /*example/* /*__tests__/* /*.idea/*'
