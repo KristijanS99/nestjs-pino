@@ -1,45 +1,31 @@
 {
-  "name": "nestjs-pino",
-  "version": "3.5.0",
-  "description": "Pino logger for NestJS",
+  "name": "nestjs-pino-otel",
+  "version": "1.0.0",
+  "description": "Pino logger for NestJS with OTEL support.",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --verbose -i --detectOpenHandles --forceExit",
     "lint": "tsc --noemit && eslint \"{src,__tests__}/**/*.ts\" --fix",
     "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.build.json",
-    "example": "rimraf dist && tsc && LOG_LEVEL=debug node dist/example/main",
-    "prepublishOnly": "npm run build && cp -r ./dist/* .",
-    "postpublish": "git clean -fd",
-    "postinstall": "node postinstall.js"
+    "build": "tsc -p tsconfig.build.json"
   },
-  "files": [
-    "*.{js,d.ts}",
-    "!jest.config.js",
-    "!.eslintrc.js"
-  ],
   "engineStrict": true,
   "engines": {
     "node": ">= 14"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamolegga/nestjs-pino.git"
+    "url": "git+https://github.com/KristijanS99/nestjs-pino.git"
   },
   "keywords": [
     "pino",
     "nestjs",
     "nest.js",
     "nest",
-    "logger"
+    "logger",
+    "otel"
   ],
-  "author": "iamolegga <iamolegga@gmail.com> (http://github.com/iamolegga)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/iamolegga/nestjs-pino/issues"
-  },
-  "homepage": "https://github.com/iamolegga/nestjs-pino#readme",
   "devDependencies": {
     "@nestjs/common": "^10.2.0",
     "@nestjs/core": "^10.2.0",
