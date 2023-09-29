@@ -1,6 +1,6 @@
 {
   "name": "nestjs-pino-otel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Pino logger for NestJS with OTEL support.",
   "main": "index.js",
   "types": "index.d.ts",

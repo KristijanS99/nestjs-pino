@@ -56,7 +56,7 @@ export interface Params {
    */
   renameContext?: string;
 
-  getActiveSpan?: () => Span;
+  getActiveSpan?: () => Span | undefined;
 }
 
 // for support of nestjs@8 we don't use
