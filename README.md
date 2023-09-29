@@ -6,4 +6,4 @@ This module is meant for internal use in my own applications and as such no supp
 for it will be provided, feel free to use as is.
 
 Check original Documentation for usage, and check `example` folder for updated example with injection of 
-`getActiveSpan` using OpemTelemetry.
+`getActiveSpan` using OpenTelemetry.
