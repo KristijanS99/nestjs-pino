@@ -24,16 +24,10 @@ jobs:
       - name: Build
         run: npm run build  # Replace with your build command
 
-      - name: Remove Existing "latest" Tag
-        run: |
-          # Remove the "latest" tag if it exists
-          if git rev-parse -q --verify "refs/tags/latest" >/dev/null; then
-            git tag -d latest
-            git push origin --delete latest
-          fi
-
-      - name: Create "latest" Tag
+      - name: Update "latest" Tag
         run: |
           TAG_NAME="latest"
-          git tag $TAG_NAME
-          git push origin $TAG_NAME
+          git tag -d $TAG_NAME  # Delete the local "latest" tag if it exists
+          git push origin --delete $TAG_NAME  # Delete the remote "latest" tag if it exists
+          git tag $TAG_NAME  # Create a new "latest" tag
+          git push origin $TAG_NAME  # Push the new "latest" tag
