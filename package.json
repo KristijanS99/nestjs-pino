@@ -11,11 +11,6 @@
     "build": "tsc -p tsconfig.build.json"
   },
   "engineStrict": true,
-  "files": [
-    "*.{js,d.ts}",
-    "!jest.config.js",
-    "!.eslintrc.js"
-  ],
   "engines": {
     "node": ">= 14"
   },
