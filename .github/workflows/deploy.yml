@@ -32,7 +32,7 @@ jobs:
         with:
           type: 'tar'
           filename: 'release.tar.gz'
-          exclusions: '*.git* /*node_modules/* /*example/* /*__tests__/* /*.idea/* /*src/* package-lock.json'
+          exclusions: '*.git* *node_modules* *example* *__tests__* *.idea* *src* package-lock.json'
 
       - name: Read package.json
         id: package
