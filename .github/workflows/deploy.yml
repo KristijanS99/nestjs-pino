@@ -13,6 +13,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Set Git User Information
+        run: |
+          git config user.name "Kristijan Stefanoski"
+          git config user.email "kristijan.stefanoski@yahoo.com"
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
