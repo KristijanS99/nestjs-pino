@@ -31,7 +31,10 @@ jobs:
           git push origin --delete $TAG_NAME 2>/dev/null || true
           git tag $TAG_NAME
           git push origin $TAG_NAME
-          
+
+      - name: Turn off ignore path message
+        run: git config advice.addIgnoredFile false
+       
       - name: Add "dist" folder temporarily
         run: git add dist
 
