@@ -47,10 +47,10 @@ jobs:
         run: git commit -m "Add 'dist' folder for tag creation"
 
       - name: Push with "dist" folder
-        run: git push origin main
+        run: git push origin master
 
       - name: Remove "dist" folder changes
         run: git reset --hard HEAD^
 
       - name: Push without "dist" folder
-        run: git push origin main
+        run: git push origin master
