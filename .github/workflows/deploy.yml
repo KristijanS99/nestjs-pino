@@ -1,0 +1,39 @@
+name: Build and Create Latest Tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-latest-tag-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16  # Change this to your desired Node.js version
+
+      - name: Install Dependencies
+        run: npm install  # Use yarn install or your preferred package manager
+
+      - name: Build
+        run: npm run build  # Replace with your build command
+
+      - name: Remove Existing "latest" Tag
+        run: |
+          # Remove the "latest" tag if it exists
+          if git rev-parse -q --verify "refs/tags/latest" >/dev/null; then
+            git tag -d latest
+            git push origin --delete latest
+          fi
+
+      - name: Create "latest" Tag
+        run: |
+          TAG_NAME="latest"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME

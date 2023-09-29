@@ -41,6 +41,11 @@ export class Logger implements LoggerService {
   }
 
   private call(level: Level, message: any, ...optionalParams: any[]) {
+    PinoLogger.getActiveSpan?.()?.setAttribute(
+      `logger.${level}.${new Date().toISOString()}`,
+      JSON.stringify({ message, ...optionalParams }),
+    );
+
     const objArg: Record<string, any> = {};
 
     // optionalParams contains extra params passed to logger

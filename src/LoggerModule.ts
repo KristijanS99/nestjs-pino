@@ -75,9 +75,13 @@ export class LoggerModule implements NestModule {
       forRoutes = DEFAULT_ROUTES,
       pinoHttp,
       useExisting,
+      getActiveSpan,
     } = this.params;
 
     const middlewares = createLoggerMiddlewares(pinoHttp || {}, useExisting);
+    if (getActiveSpan) {
+      PinoLogger.getActiveSpan = getActiveSpan;
+    }
 
     if (exclude) {
       consumer

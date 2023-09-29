@@ -3,6 +3,7 @@ import {
   MiddlewareConfigProxy,
   ModuleMetadata,
 } from '@nestjs/common/interfaces';
+import { Span } from '@opentelemetry/api';
 import { Logger, DestinationStream } from 'pino';
 import { Options } from 'pino-http';
 
@@ -54,6 +55,8 @@ export interface Params {
    * {"level":30, ... "RENAME_CONTEXT_VALUE_HERE":"AppController" }
    */
   renameContext?: string;
+
+  getActiveSpan?: () => Span;
 }
 
 // for support of nestjs@8 we don't use

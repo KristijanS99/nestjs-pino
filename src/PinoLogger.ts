@@ -5,6 +5,7 @@ import pino from 'pino';
 
 import { Params, isPassedLogger, PARAMS_PROVIDER_TOKEN } from './params';
 import { storage } from './storage';
+import { Span } from '@opentelemetry/api'
 
 type PinoMethods = Pick<
   pino.Logger,
@@ -45,6 +46,7 @@ export class PinoLogger implements PinoMethods {
    * Readonly, but you can change it's properties.
    */
   static readonly root: pino.Logger;
+  static getActiveSpan: () => Span;
 
   protected context = '';
   protected readonly contextName: string;
