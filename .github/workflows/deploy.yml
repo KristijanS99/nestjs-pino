@@ -32,4 +32,4 @@ jobs:
         with:
           type: 'zip'
           filename: 'release.zip'
-          exclusions: '*.git* /*node_modules/* /*example/* /*__tests__/* /*.idea/*'
+          exclusions: '*.git* /*node_modules/* /*example/* /*__tests__/* /*.idea/* /*src/* package-lock.json'
