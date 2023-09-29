@@ -46,7 +46,7 @@ export class PinoLogger implements PinoMethods {
    * Readonly, but you can change it's properties.
    */
   static readonly root: pino.Logger;
-  static getActiveSpan: () => Span;
+  static getActiveSpan: () => Span | undefined;
 
   protected context = '';
   protected readonly contextName: string;
